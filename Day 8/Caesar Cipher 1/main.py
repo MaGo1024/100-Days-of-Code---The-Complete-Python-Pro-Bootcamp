@@ -16,7 +16,21 @@ alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'
 def encrypt(original_text, shift_amount):
     encrypted_text = ""
     for letter in original_text:
-        encrypted_text += alphabet[(alphabet.index(letter) + shift_amount) % len(alphabet)]
-    print(encrypted_text)
+        if letter in alphabet:
+            new_index = (alphabet.index(letter) + shift_amount) % len(alphabet)
+            encrypted_text += alphabet[new_index]
+        else:
+            encrypted_text += letter
+    return encrypted_text
 
-encrypt("olumidz", 5)
+def decrypt(original_text, shift_amount):
+    decrypted_text = ""
+    for letter in original_text:
+        if letter in alphabet:
+            new_index = (alphabet.index(letter) - shift_amount) % len(alphabet)
+            decrypted_text += alphabet[new_index]
+        else:
+            decrypted_text += letter
+    return decrypted_text
+
+print(decrypt(encrypt("oracle!", 5), 5))

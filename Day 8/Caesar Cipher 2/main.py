@@ -14,13 +14,39 @@ shift = int(input("Type the shift number:\n"))
 def encrypt(original_text, shift_amount):
     cipher_text = ""
     for letter in original_text:
-        shifted_position = alphabet.index(letter) + shift_amount
-        shifted_position %= len(alphabet)
-        cipher_text += alphabet[shifted_position]
+        if letter in alphabet:
+            shifted_position = alphabet.index(letter) + shift_amount
+            shifted_position %= len(alphabet)
+            cipher_text += alphabet[shifted_position]
+        else:
+            cipher_text += letter
     print(f"Here is the encoded result: {cipher_text}")
 
 
-encrypt(original_text=text, shift_amount=shift)
+# encrypt(original_text=text, shift_amount=shift)
 
+def decrypt(original_text, shift_amount):
+    decrypted_text = ""
+    for letter in original_text:
+        if letter in alphabet:
+            new_index = (alphabet.index(letter) - shift_amount) % len(alphabet)
+            decrypted_text += alphabet[new_index]
+        else:
+            decrypted_text += letter
+    print(f"Here is the encoded result: {decrypted_text}")
 
+# encrypted = encrypt("oracle!", 5)
+# print(encrypted)
+#
+# decrypted = decrypt("twfhqj!", 5)
+# print(decrypted)
 
+def caesar(direction, text, shift):
+    if direction == "encode":
+        encrypt(text, shift)
+    elif direction == "decode":
+        decrypt(text, shift)
+    else:
+        print("Invalid entry.")
+
+caesar(direction=direction, text=text, shift=shift)
